@@ -28,6 +28,13 @@
   //     "database_id": ""
   //   }
   // ],
+  "d1_databases": [
+    {
+      "binding": "DB",
+      "database_name": "tokuronbd",
+      "database_id": "b59a877b-2a68-4349-af02-fe579e5a6e1e"
+    }
+  ],
   // "ai": {
   //   "binding": "AI"
   // },
