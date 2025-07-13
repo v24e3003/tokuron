@@ -10,9 +10,10 @@ import type {
   DBCreateMessage,
   DBMessage
 } from "../models/db";
-import { SimpleInMemoryResource } from "../storage/in_memory";
 import { AUTH_PREFIX, createAuthApp } from "./auth";
 import { CHAT_PREFIX, createChatApp } from "./chat";
+import { env } from "cloudflare:workers";
+import { UserSQLResource, ChatSQLResource, MessageSQLResource } from "../storage/sql";
 
 export function createMainApp(
   authApp: Hono<ContextVariables>,
@@ -28,12 +29,12 @@ export function createMainApp(
   return app;
 }
 
-export function createInMemoryApp() {
+export function createSQLApp() {
   return createMainApp(
-    createAuthApp(new SimpleInMemoryResource<DBUser, DBCreateUser>()),
+    createAuthApp(new UserSQLResource(env.DB)),
     createChatApp(
-      new SimpleInMemoryResource<DBChat, DBCreateChat>(),
-      new SimpleInMemoryResource<DBMessage, DBCreateMessage>(),
+      new ChatSQLResource(env.DB),
+      new MessageSQLResource(env.DB)
     )
   );
 }

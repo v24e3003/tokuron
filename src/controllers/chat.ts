@@ -35,7 +35,6 @@ export function createChatApp(
   chatApp.get(CHAT_DETAIL_ROUTE, async (c) => {
     const { id } = c.req.param();
     const userId = c.get("userId");
-    // Fix the following line appropriately
     const data = await chatResource.find({ id, ownerId: userId });
     return c.json({ data });
   });

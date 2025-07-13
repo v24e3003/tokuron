@@ -3,6 +3,9 @@
   "scripts": {
     "dev": "wrangler dev",
     "deploy": "wrangler deploy --minify",
+    "generate":"drizzle-kit generate",
+    "list": "wrangler d1 migrations list DB --remote",
+    "apply": "wrangler d1 migrations apply DB --remote",
     "cf-typegen": "wrangler types --env-interface CloudflareBindings"
   },
   "dependencies": {
