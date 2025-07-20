@@ -7,6 +7,7 @@ import type {
   DBMessage,
 } from "../models/db";
 import type { IDatabaseResource } from "../storage/types";
+import { generateMessageResponse } from "../integrations/gpt";
 
 export const CHAT_PREFIX = "/chat/";
 const CHAT_ROUTE = "";
@@ -52,8 +53,10 @@ export function createChatApp(
     const userMessage: DBCreateMessage = { message, chatId, type: "user" };
     await messageResource.create(userMessage);
 
+    const allMessage = await messageResource.findAll({ chatId });
+    const response = await generateMessageResponse(allMessage, c.env.GITHUB_TOKEN);
     const responseMessage: DBCreateMessage = {
-      message: "dummy response",
+      message: response,
       chatId,
       type: "assistant",
     };

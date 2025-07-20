@@ -2,14 +2,6 @@ import { Hono } from "hono";
 import type { ContextVariables } from "../constants";
 import { API_PREFIX } from "../constants";
 import { attachUserId, checkJWTAuth } from "../middlewares/auth";
-import type { 
-  DBCreateUser,
-  DBUser,
-  DBChat,
-  DBCreateChat,
-  DBCreateMessage,
-  DBMessage
-} from "../models/db";
 import { AUTH_PREFIX, createAuthApp } from "./auth";
 import { CHAT_PREFIX, createChatApp } from "./chat";
 import { env } from "cloudflare:workers";

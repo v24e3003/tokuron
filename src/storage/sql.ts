@@ -11,6 +11,17 @@ export class UserSQLResource implements IDatabaseResource<DBUser, DBCreateUser> 
     this.db = drizzle(d1);
   }
 
+  async get(id: string): Promise<DBUser | null> {
+  const result = await this.db
+    .select()
+    .from(userTable)
+    .where(eq(userTable.id, id))
+    .get();
+
+  return result as DBUser || null;
+}
+
+
   async create(data: DBCreateUser): Promise<DBUser> {
     const result = await this.db
       .insert(userTable)
@@ -95,6 +106,16 @@ export class ChatSQLResource implements IDatabaseResource<DBChat, DBCreateChat> 
     this.db = drizzle(d1);
   }
 
+    async get(id: string): Promise<DBChat | null> {
+    const result = await this.db
+      .select()
+      .from(chatTable)
+      .where(eq(chatTable.id, id))
+      .get();
+
+    return result as DBChat || null;
+  }
+  
   async create(data: DBCreateChat): Promise<DBChat> {
     const result = await this.db
       .insert(chatTable)
@@ -172,6 +193,15 @@ export class MessageSQLResource implements IDatabaseResource<DBMessage, DBCreate
 
   constructor(d1: D1Database) {
     this.db = drizzle(d1);
+  }
+
+    async get(id: string): Promise<DBMessage | null> {
+    const result = await this.db
+      .select()
+      .from(messageTable)
+      .where(eq(messageTable.id, id))
+      .get();
+    return result as DBMessage || null;
   }
 
   async create(data: DBCreateMessage): Promise<DBMessage> {
